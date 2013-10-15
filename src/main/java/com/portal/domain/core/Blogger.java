@@ -1,6 +1,7 @@
 package com.portal.domain.core;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -11,6 +12,8 @@ import org.hibernate.validator.constraints.Range;
 public class Blogger {
 
 	private long id;
+	
+	private List<Post> postList;
 	
 	@NotEmpty
 	private String login;
@@ -93,5 +96,13 @@ public class Blogger {
 
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
+	}
+
+	public List<Post> getPostList() {
+		return postList;
+	}
+
+	public void setPostList(List<Post> postList) {
+		this.postList = postList;
 	}
 }

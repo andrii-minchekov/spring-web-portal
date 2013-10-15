@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.portal.dao.BloggerDao;
 import com.portal.domain.core.Blogger;
+import com.portal.domain.core.Post;
 
 @Service(value="bloggerService")
 public class BloggerServiceImpl implements BloggerService {
@@ -23,20 +24,18 @@ public class BloggerServiceImpl implements BloggerService {
 
 	@Override
 	public Blogger getBloggerByLogin(String login) {
-		// TODO Auto-generated method stub
-		return null;
+		return bloggerDao.getBloggerByLogin(login);
 	}
 
 	@Override
 	public Blogger getBloggerByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return bloggerDao.getBloggerByEmail(email);
 	}
 
 	@Override
-	public List getPostsOfBlogger(Blogger blogger) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Post> getPostsOfBlogger(Blogger blogger) {
+		return bloggerDao.getPostsOfBlogger(blogger);
+		
 	}
 
 }

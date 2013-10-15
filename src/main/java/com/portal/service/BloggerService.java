@@ -3,6 +3,7 @@ package com.portal.service;
 import java.util.List;
 
 import com.portal.domain.core.Blogger;
+import com.portal.domain.core.Post;
 
 public interface BloggerService {
 
@@ -12,6 +13,6 @@ public interface BloggerService {
 
 	public Blogger getBloggerByEmail(String email);
 
-	public List getPostsOfBlogger(Blogger blogger);
+	public List<Post> getPostsOfBlogger(Blogger blogger);
 
 }

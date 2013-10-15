@@ -2,6 +2,7 @@ package com.portal.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
 import com.portal.domain.core.Blogger;
 import com.portal.exception.ImageUploadException;
@@ -38,7 +40,7 @@ public class ProfileController {
 	@RequestMapping(method = RequestMethod.POST, value = "createNewBlogger")
 	public String addNewBloggerFromForm(@Valid Blogger blogger,
 			BindingResult bindingResult,
-			@RequestParam(value = "image", required = false) MultipartFile image, HttpServletRequest request) {
+			@RequestParam(value = "image", required = false) MultipartFile image, HttpServletRequest request) throws UnsupportedEncodingException {
 		if (bindingResult.hasErrors()) {
 			return "bloggers/newUserInputForm";
 		}
@@ -53,12 +55,12 @@ public class ProfileController {
 			return "bloggers/newUserInputForm";
 		}
 
-		return "redirect:/bloggers/" + blogger.getEmail();
+		return "redirect:/bloggers/" + blogger.getLogin();
 	}
 
-	@RequestMapping(value = "/{email}", method = RequestMethod.GET)
-	public String showBloggerProfile(@PathVariable String email, Model model) {
-		Blogger blogger = bloggerService.getBloggerByEmail(email);
+	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
+	public String showBloggerProfile(@PathVariable String login, Model model) {
+		Blogger blogger = bloggerService.getBloggerByLogin(login);
 		model.addAttribute(blogger);
 		model.addAttribute("postList", bloggerService.getPostsOfBlogger(blogger));
 		return "bloggers/postList";

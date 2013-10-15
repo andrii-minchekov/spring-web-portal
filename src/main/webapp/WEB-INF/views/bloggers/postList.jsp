@@ -9,8 +9,8 @@
 					src="<s:url value="/resources/images/spitter_avatar.png"/>"
 					width="48" height="48" /></td>
 				<td><a href="<s:url value="/bloggers/${post.blogger.email}"/>">
-						${post.blogger.username}</a> <c:out value="${post.text}" /><br /> 
-					<c:out value="${post.when}" />
+						${post.blogger.firstName} ${post.blogger.lastName}</a> <c:out value="${post.content}" /><br /> 
+					<c:out value="${post.lastUpdatedDate}" />
 				</td>
 			</tr>
 		</c:forEach>

@@ -9,21 +9,21 @@ import javax.persistence.Id;
 
 @Entity
 public class Post {
-	public final static Post DEFAULT_INSTANCE = new Post(100,"First Blog post","aminchekov",
+	public final static Post DEFAULT_INSTANCE = new Post(100,"First Blog post", 1,
 			"Content of first blog post", new Date());
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 	private String title;
-	private String author;
+	private long bloggerId;
 	private String content;
 	private Date lastUpdatedDate;
 	
-	public Post(long id, String title,String author, String content, Date lastUpdatedDate) {
+	public Post(long id, String title, long blogger, String content, Date lastUpdatedDate) {
 		this.id = id;
 		this.title = title;
-		this.author = author;
+		this.bloggerId = blogger;
 		this.content = content;
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
@@ -41,12 +41,7 @@ public class Post {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getAuthor() {
-		return author;
-	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+
 	public String getContent() {
 		return content;
 	}
@@ -58,6 +53,12 @@ public class Post {
 	}
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
+	}
+	public long getBloggerId() {
+		return bloggerId;
+	}
+	public void setBloggerId(long bloggerId) {
+		this.bloggerId = bloggerId;
 	}
 
 }
