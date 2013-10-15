@@ -39,7 +39,7 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	<jdbc:initialize-database data-source="dataSource">
+	<jdbc:initialize-database data-source="dataSource" enabled="false">
 		<jdbc:script location="classpath:db-schema.sql" />
 		<jdbc:script location="classpath:db-test-data.sql" />
 	</jdbc:initialize-database>
