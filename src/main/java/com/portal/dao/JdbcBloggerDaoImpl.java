@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -27,8 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.portal.domain.core.Blogger;
 import com.portal.domain.core.Post;
 
-@Repository(value = "bloggerDao")
-public class JdbcBloggerDaoImpl implements BloggerDao {
+//@Lazy
+//@Repository
+public class JdbcBloggerDaoImpl implements BloggerDao{
 
 	private static final String SQL_UPDATE_BLOGGER = "update blogger set firstName = ? ,lastName = ?, login = ?,password = ?,email=?,lastupdateddate=?";
 
@@ -134,7 +136,7 @@ public class JdbcBloggerDaoImpl implements BloggerDao {
 			Post post = new Post();
 			post.setId(rs.getLong("id"));
 			post.setContent(rs.getString("content"));
-			post.setBloggerId(rs.getLong("bloggerId"));
+			//post.setBloggerId(rs.getLong("bloggerId"));
 			post.setLastUpdatedDate(rs.getDate("lastUpdatedDate"));
 			post.setTitle(rs.getString("title"));
 			return post;
@@ -154,6 +156,12 @@ public class JdbcBloggerDaoImpl implements BloggerDao {
 			return blogger;
 		}
 		
+	}
+
+	@Override
+	public Blogger get(long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

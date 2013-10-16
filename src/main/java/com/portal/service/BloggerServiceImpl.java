@@ -1,5 +1,6 @@
 package com.portal.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ public class BloggerServiceImpl implements BloggerService {
 	}
 
 	@Override
-	public List<Post> getPostsOfBlogger(Blogger blogger) {
+	public Collection<Post> getPostsOfBlogger(Blogger blogger) {
 		return bloggerDao.getPostsOfBlogger(blogger);
 		
 	}

@@ -1,5 +1,6 @@
 package com.portal.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.portal.domain.core.Blogger;
@@ -13,6 +14,6 @@ public interface BloggerService {
 
 	public Blogger getBloggerByEmail(String email);
 
-	public List<Post> getPostsOfBlogger(Blogger blogger);
+	public Collection<Post> getPostsOfBlogger(Blogger blogger);
 
 }

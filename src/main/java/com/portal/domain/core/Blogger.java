@@ -1,19 +1,33 @@
 package com.portal.domain.core;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
+
+@Entity
 public class Blogger {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private List<Post> postList;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="BLOGGER_ID")
+	private Collection<Post> postList = new LinkedHashSet<Post>();
 	
 	@NotEmpty
 	private String login;
@@ -98,7 +112,7 @@ public class Blogger {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public List<Post> getPostList() {
+	public Collection<Post> getPostList() {
 		return postList;
 	}
 

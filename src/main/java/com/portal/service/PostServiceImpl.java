@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.dao.PostDao;
+import com.portal.domain.core.Post;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -12,10 +13,14 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostDao postDao;
 
-	@Transactional
+	
 	public void getPostById(long id) {
 		postDao.get(id);
 
 	}
 
+	public void savePost(Post post) {
+		postDao.addPost(post);
+	}
+	
 }

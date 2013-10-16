@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,14 +22,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
 import com.portal.domain.core.Blogger;
+import com.portal.domain.core.Post;
 import com.portal.exception.ImageUploadException;
 import com.portal.service.BloggerService;
 
+//@Lazy
 @Controller
 @RequestMapping("/bloggers")
 public class ProfileController {
 
-	@Inject
+	@Autowired
 	BloggerService bloggerService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "createNewBlogger")
@@ -59,9 +63,10 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
-	public String showBloggerProfile(@PathVariable String login, Model model) {
+	public String showRecentPosts(@PathVariable String login, Model model) {
 		Blogger blogger = bloggerService.getBloggerByLogin(login);
 		model.addAttribute(blogger);
+		model.addAttribute(new Post());
 		model.addAttribute("postList", bloggerService.getPostsOfBlogger(blogger));
 		return "bloggers/postList";
 	}
@@ -76,6 +81,7 @@ public class ProfileController {
 	private void saveImage(String fileName, MultipartFile image,
 			HttpServletRequest request) {
 
+		//TODO Save avatar to particular image store but no at dynamic application context
 		File file = new File(request.getRealPath("/") + "/resources/store/"
 				+ fileName);
 		try {

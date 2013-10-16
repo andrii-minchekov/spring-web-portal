@@ -32,13 +32,13 @@
 				<tr>
 					<th><label for="firstName">First name:</label></th>
 					<td><sf:input path="firstName" size="15" id="firstName" />
-					<sf:errors path="firstName" classClass="error" />
+					<sf:errors path="firstName" cssClass="error" />
 					</td>
 				</tr>
 				<tr>
 					<th><label for="lastName">Last name:</label></th>
 					<td><sf:input path="lastName" size="15" id="lastName" />
-					<sf:errors path="lastName" classClass="error" />
+					<sf:errors path="lastName" cssClass="error" />
 					</td>
 				</tr>
 				<tr>

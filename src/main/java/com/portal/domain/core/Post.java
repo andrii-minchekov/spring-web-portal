@@ -2,28 +2,39 @@ package com.portal.domain.core;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Post {
-	public final static Post DEFAULT_INSTANCE = new Post(100,"First Blog post", 1,
+	public final static Post DEFAULT_INSTANCE = new Post(100,"First Blog post", new Blogger(),
 			"Content of first blog post", new Date());
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
+
+	@Size(min=1)
 	private String title;
-	private long bloggerId;
+	
+	@ManyToOne
+	@JoinColumn(name="BLOGGER_ID")
+	private Blogger blogger;
+	
+	@Size(min=1)
 	private String content;
 	private Date lastUpdatedDate;
 	
-	public Post(long id, String title, long blogger, String content, Date lastUpdatedDate) {
+	public Post(long id, String title, Blogger blogger, String content, Date lastUpdatedDate) {
 		this.id = id;
 		this.title = title;
-		this.bloggerId = blogger;
+		this.blogger = blogger;
 		this.content = content;
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
@@ -54,11 +65,11 @@ public class Post {
 	public void setLastUpdatedDate(Date lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
-	public long getBloggerId() {
-		return bloggerId;
+	public Blogger getBlogger() {
+		return blogger;
 	}
-	public void setBloggerId(long bloggerId) {
-		this.bloggerId = bloggerId;
+	public void setBlogger(Blogger blogger) {
+		this.blogger = blogger;
 	}
 
 }
