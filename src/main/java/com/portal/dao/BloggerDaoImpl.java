@@ -15,7 +15,7 @@ import com.portal.domain.core.Post;
 @Repository(value = "bloggerDao")
 public class BloggerDaoImpl implements BloggerDao {
 
-	@PersistenceContext
+	@PersistenceContext(unitName="persistenceUnit")
 	private EntityManager em;
 
 	@Override

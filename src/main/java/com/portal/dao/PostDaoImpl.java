@@ -11,7 +11,7 @@ import com.portal.domain.core.Post;
 @Repository
 public class PostDaoImpl implements PostDao {
 
-	@PersistenceContext
+	@PersistenceContext(unitName="persistenceUnit")
 	private EntityManager em;
 
 	@Override

@@ -17,59 +17,81 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
- <pluginRepositories>
-        <pluginRepository>
-            <id>google-staging</id>
-            <name>Google Staging</name>
-            <url>https://oss.sonatype.org/content/repositories/comgoogleappengine-1004/</url>
-        </pluginRepository>
-    </pluginRepositories>
-	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>google-staging</id>
+			<name>Google Staging</name>
+			<url>https://oss.sonatype.org/content/repositories/comgoogleappengine-1004/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
-<dependencies>
-        <!-- Compile/runtime dependencies -->
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>${appengine.target.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
 
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-testing</artifactId>
-            <version>${appengine.target.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-stubs</artifactId>
-            <version>${appengine.target.version}</version>
-            <scope>test</scope>
-        </dependency>
-	
+	<dependencies>
+		<!-- Compile/runtime dependencies -->
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-1.0-sdk</artifactId>
+			<version>${appengine.target.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 
-<!-- Spring -->
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-testing</artifactId>
+			<version>${appengine.target.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-stubs</artifactId>
+			<version>${appengine.target.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.appengine.orm</groupId>
+			<artifactId>datanucleus-appengine</artifactId>
+			<version>2.0.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-core</artifactId>
+			<version>[3.0, 3.0.99)</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-api-jpa</artifactId>
+			<version>[3.0, 3.0.99)</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jpa_2.0_spec</artifactId>
+			<version>1.0</version>
+		</dependency>
+ 		<dependency>
+			<groupId>javax.jdo</groupId>
+			<artifactId>jdo-api</artifactId>
+			<version>[3.0, 4.0)</version>
+		</dependency>
+
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
 			<exclusions>
-				<!-- Exclude Commons Logging in favor of SLF4j
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion> -->
+				<!-- Exclude Commons Logging in favor of SLF4j <exclusion> <groupId>commons-logging</groupId> 
+					<artifactId>commons-logging</artifactId> </exclusion> -->
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -143,7 +165,7 @@
 			<version>2.2</version>
 			<!-- <scope>provided</scope> -->
 		</dependency>
-	
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -197,13 +219,11 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>3.6.0.Final</version>
 		</dependency>
+
 		<!-- <dependency> <groupId>org.apache.tomcat</groupId> <artifactId>tomcat-servlet-api</artifactId> 
 			<version>7.0.30</version> <scope>provided</scope> </dependency> -->
-<!-- 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>3.2.4.RELEASE</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-web</artifactId> 
+			<version>3.2.4.RELEASE</version> </dependency> -->
 	</dependencies>
 	<build>
 		<!-- <outputDirectory>C:\Program Files\STS\WorkspaceSpring\spring-portal\src\main\webapp\WEB-INF\classes</outputDirectory> -->
@@ -248,32 +268,41 @@
 				<version>${appengine.target.version}</version>
 			</plugin>
 
-          <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>2.5.1</version>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin> -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <version>2.5.1</version> 
+				<artifactId>maven-compiler-plugin</artifactId> <configuration> <source>1.7</source> 
+				<target>1.7</target> </configuration> </plugin> -->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <archiveClasses>true</archiveClasses>
-                    <!-- <webResources>
-                        in order to interpolate version from pom into appengine-web.xml
-                        <resource>
-                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
-                            <filtering>true</filtering>
-                            <targetPath>WEB-INF</targetPath>
-                        </resource>
-                    </webResources> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<archiveClasses>true</archiveClasses>
+					<!-- <webResources> in order to interpolate version from pom into appengine-web.xml 
+						<resource> <directory>${basedir}/src/main/webapp/WEB-INF</directory> <filtering>true</filtering> 
+						<targetPath>WEB-INF</targetPath> </resource> </webResources> -->
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>maven-datanucleus-plugin</artifactId>
+				<version>3.0.2</version>
+				 <configuration>
+                    <api>JPA</api>
+                    <persistenceUnitName>persistenceUnit</persistenceUnitName>
+                    <!-- <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration> -->
+                    <verbose>true</verbose>
                 </configuration>
-            </plugin>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>enhance</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 
