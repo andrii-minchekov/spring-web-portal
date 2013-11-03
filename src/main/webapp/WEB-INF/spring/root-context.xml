@@ -9,7 +9,7 @@
 
 	<context:property-placeholder location="/WEB-INF/spring/jdbc.properties" />
 	
-	<import resource="datalayer.xml" />
+	<!-- <import resource="datalayer.xml" /> -->
 	
 	<context:component-scan base-package="com.portal">
 		<context:exclude-filter type="regex" expression="com\.portal\.controller.*"/>
