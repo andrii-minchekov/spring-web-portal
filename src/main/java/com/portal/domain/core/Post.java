@@ -14,8 +14,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Type;
-
 @Entity
 public class Post {
 	public final static Post DEFAULT_INSTANCE = new Post(100,"First Blog post", new Blogger(),

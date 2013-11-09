@@ -58,8 +58,6 @@
 					<tr>
 						<th><label for="image">Profile image:</label></th>
 						<td><input name="image" type="file" />
-					
-						
 						</tr>
 					<tr>
 						<th></th>

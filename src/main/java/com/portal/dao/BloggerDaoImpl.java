@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.domain.core.Blogger;
 import com.portal.domain.core.Post;
@@ -19,20 +19,20 @@ public class BloggerDaoImpl implements BloggerDao {
 	private EntityManager em;
 
 	@Override
-	@Transactional
+	//@Transactional
 	public Blogger get(long id) {
 		return em.find(Blogger.class, id);
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public void addBlogger(Blogger blogger) {
 		em.persist(blogger);
 		//em.flush();
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public Collection<Post> getPostsOfBlogger(Blogger blogger) {
 		Query query = em.createQuery("from Post as p where p.blogger = ?1");
 		query.setParameter(1, blogger);
@@ -41,7 +41,7 @@ public class BloggerDaoImpl implements BloggerDao {
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public Blogger getBloggerByEmail(String email) {
 		Query query = em.createQuery("from Blogger where email=?1");
 		query.setParameter(1, email);
@@ -49,7 +49,7 @@ public class BloggerDaoImpl implements BloggerDao {
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public Blogger getBloggerByLogin(String login) {
 		Query query = em.createQuery("from Blogger where login=?1");
 		query.setParameter(1, login);

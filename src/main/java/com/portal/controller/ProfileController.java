@@ -1,29 +1,28 @@
 package com.portal.controller;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.Blob;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriUtils;
 
 import com.portal.domain.core.Blogger;
 import com.portal.domain.core.Post;
-import com.portal.exception.ImageUploadException;
 import com.portal.service.BloggerService;
 
 //@Lazy
@@ -31,6 +30,7 @@ import com.portal.service.BloggerService;
 @RequestMapping("/bloggers")
 public class ProfileController {
 
+	Logger log = LoggerFactory.getLogger(ProfileController.class.getName());
 	@Autowired
 	BloggerService bloggerService;
 
@@ -43,22 +43,36 @@ public class ProfileController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "createNewBlogger")
 	public String addNewBloggerFromForm(@Valid Blogger blogger,
-			BindingResult bindingResult,
-			@RequestParam(value = "image", required = false) MultipartFile image, HttpServletRequest request) throws UnsupportedEncodingException {
+			BindingResult bindingResult, HttpServletRequest request)
+			throws UnsupportedEncodingException {
 		if (bindingResult.hasErrors()) {
 			return "bloggers/newUserInputForm";
 		}
-		bloggerService.saveBlogger(blogger);
+
 		try {
-			if (!image.isEmpty()) {
-				validateImage(image);
-				saveImage("nana.jpg", image, request);
+			ServletFileUpload upload = new ServletFileUpload();
+			FileItemIterator iterator = upload.getItemIterator(request);
+			while (iterator.hasNext()) {
+				FileItemStream item = iterator.next();
+				InputStream stream = item.openStream();
+
+				if (item.isFormField()) {
+					log.warn("Got a form field: " + item.getFieldName());
+				} else {
+					log.warn("Got an uploaded file: " + item.getFieldName()
+							+ ", name = " + item.getName());
+
+					byte[] bytes = IOUtils.toByteArray(stream);
+					Blob blob = new org.datanucleus.store.rdbms.datatype.BlobImpl(
+							bytes);
+					blogger.setImage(blob);
+				}
 			}
-		} catch (Exception e) {
-			bindingResult.reject(e.getMessage());
+		} catch (Exception ex) {
 			return "bloggers/newUserInputForm";
 		}
 
+		bloggerService.saveBlogger(blogger);
 		return "redirect:/bloggers/" + blogger.getLogin();
 	}
 
@@ -67,30 +81,29 @@ public class ProfileController {
 		Blogger blogger = bloggerService.getBloggerByLogin(login);
 		model.addAttribute(blogger);
 		model.addAttribute(new Post());
-		model.addAttribute("postList", bloggerService.getPostsOfBlogger(blogger));
+		model.addAttribute("postList",
+				bloggerService.getPostsOfBlogger(blogger));
 		return "bloggers/postList";
 	}
 
-	private void validateImage(MultipartFile image) {
-		if (!image.getContentType().equals("image/jpeg")) {
-			throw new ImageUploadException("Only JPG images accepted");
-		}
-
-	}
-
-	private void saveImage(String fileName, MultipartFile image,
-			HttpServletRequest request) {
-
-		//TODO Save avatar to particular image store but no at dynamic application context
-		File file = new File(request.getRealPath("/") + "/resources/store/"
-				+ fileName);
-		try {
-			FileUtils.writeByteArrayToFile(file, image.getBytes());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			throw new ImageUploadException("Unable to save image", e);
-		}
-
-	}
+	/*
+	 * private void validateImage(MultipartFile image) { if
+	 * (!image.getContentType().equals("image/jpeg")) { throw new
+	 * ImageUploadException("Only JPG images accepted"); }
+	 * 
+	 * }
+	 * 
+	 * private void saveImage(String fileName, MultipartFile image,
+	 * HttpServletRequest request) {
+	 * 
+	 * //TODO Save avatar to particular image store but no at dynamic
+	 * application context File file = new File(request.getRealPath("/") +
+	 * "/resources/store/" + fileName); try {
+	 * FileUtils.writeByteArrayToFile(file, image.getBytes()); } catch
+	 * (IOException e) { // TODO Auto-generated catch block throw new
+	 * ImageUploadException("Unable to save image", e); }
+	 * 
+	 * }
+	 */
 
 }

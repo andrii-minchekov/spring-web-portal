@@ -1,30 +1,6 @@
 package com.portal.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
+import java.util.Collection;
 import com.portal.domain.core.Blogger;
 import com.portal.domain.core.Post;
 
@@ -32,16 +8,46 @@ import com.portal.domain.core.Post;
 //@Repository
 public class JdbcBloggerDaoImpl implements BloggerDao{
 
-	private static final String SQL_UPDATE_BLOGGER = "update blogger set firstName = ? ,lastName = ?, login = ?,password = ?,email=?,lastupdateddate=?";
+	@Override
+	public void addBlogger(Blogger blogger) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	/*
+	@Override
+	public Blogger get(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Post> getPostsOfBlogger(Blogger blogger) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Blogger getBloggerByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Blogger getBloggerByLogin(String login) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*private static final String SQL_UPDATE_BLOGGER = "update blogger set firstName = ? ,lastName = ?, login = ?,password = ?,email=?,lastupdateddate=?";
+
+	
 	 * public void addBlogger(Blogger blogger) {
 	 * getSimpleJdbcTemplate().update(SQL_INSERT_BLOGGER, 111,
 	 * blogger.getFirstName(), blogger.getLastName(), blogger.getLogin(),
 	 * blogger.getPassword(), blogger.getEmail()); //blogger.setId(11);
 	 * 
 	 * }
-	 */
+	 
 
 	private DataSource dataSource;
 	private SimpleJdbcTemplate simpleJdbcTemplate;
@@ -69,8 +75,8 @@ public class JdbcBloggerDaoImpl implements BloggerDao{
 	@Autowired
 	public void setInsertBlogger() {
 		insertBlogger = new SimpleJdbcInsert(dataSource).withTableName("blogger").usingGeneratedKeyColumns("id");
-		/*insertBlogger = new SimpleJdbcInsert(dataSource).withTableName("blogger");
-		insertBlogger.setGeneratedKeyName("id");*/
+		insertBlogger = new SimpleJdbcInsert(dataSource).withTableName("blogger");
+		insertBlogger.setGeneratedKeyName("id");
 	}
 			
 
@@ -162,6 +168,6 @@ public class JdbcBloggerDaoImpl implements BloggerDao{
 	public Blogger get(long id) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 }

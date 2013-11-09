@@ -1,16 +1,20 @@
 package com.portal.domain.core;
 
+import java.sql.Blob;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
 
@@ -45,6 +49,18 @@ public class Blogger {
 	@Range(min = 2, max = 150)
 	private String password;
 	
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
+	private Blob image;
+	
+	public Blob getImage() {
+		return image;
+	}
+
+	public void setImage(Blob image) {
+		this.image = image;
+	}
+
 	public long getId() {
 		return id;
 	}
