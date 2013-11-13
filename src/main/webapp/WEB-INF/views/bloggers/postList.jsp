@@ -45,7 +45,7 @@
 			</fieldset>
 		</sf:form>
 
-		<table class="table" cellspacing="15">
+		<table class="table" style="float:left" cellspacing="15">
 			<c:forEach items="${postList}" var="post">
 				<tr>
 					<td><img

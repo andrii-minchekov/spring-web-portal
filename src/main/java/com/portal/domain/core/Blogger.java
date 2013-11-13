@@ -1,17 +1,13 @@
 package com.portal.domain.core;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,9 +21,13 @@ public class Blogger {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="BLOGGER_ID")
-	private Collection<Post> postList = new LinkedHashSet<Post>();
+/*	@OneToMany(cascade=CascadeType.ALL, mappedBy="blogger")
+	//@JoinColumn(name="BLOGGER_ID")
+	private Collection<Post> postList = new LinkedHashSet<Post>();*/
+	
+	@ManyToOne
+	@JoinColumn(name="GROUP_ID")
+	private Group group;
 	
 	@NotEmpty
 	private String login;
@@ -44,6 +44,9 @@ public class Blogger {
 
 	@Range(min = 2, max = 150)
 	private String password;
+	
+	private Date lastUpdated;
+	private boolean isSubscribedByEmail;
 	
 	public long getId() {
 		return id;
@@ -62,15 +65,12 @@ public class Blogger {
 	}
 
 	public boolean isUpdateByEmail() {
-		return updateByEmail;
+		return isSubscribedByEmail;
 	}
 
-	public void setUpdateByEmail(boolean updateByEmail) {
-		this.updateByEmail = updateByEmail;
+	public void setUpdateByEmail(boolean isSubscribedByEmail) {
+		this.isSubscribedByEmail = isSubscribedByEmail;
 	}
-
-	private Date lastUpdated;
-	private boolean updateByEmail;
 
 	public String getLogin() {
 		return login;
@@ -112,11 +112,19 @@ public class Blogger {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public Collection<Post> getPostList() {
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+/*	public Collection<Post> getPostList() {
 		return postList;
 	}
 
 	public void setPostList(List<Post> postList) {
 		this.postList = postList;
-	}
+	}*/
 }

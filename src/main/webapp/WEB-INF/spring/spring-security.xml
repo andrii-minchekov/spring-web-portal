@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 	<bean id="authenticationManager"
+		class="org.springframework.security.authentication.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="daoAuthenticationProvider" />
+				<ref local="anonymousAuthenticationProvider" />
+				<ref local="ldapAuthenticationProvider" />
+			</list>
+		</property>
+	</bean>
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="inMemoryDaoImpl" /> <property 
+			name="passwordEncoder" ref="passwordEncoder" />
+	</bean> -->
+
+	<!-- <bean id="anonymousAuthenticationProvider" class="org.springframework.security.authentication.AnonymousAuthenticationProvider"> 
+		</bean> -->
+
+<!-- 	<user-service id="userDetailsService">
+		<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
+		<user name="bob" password="bobspassword" authorities="ROLE_USER" />
+	</user-service> -->
+
+</beans>
