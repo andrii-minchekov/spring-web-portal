@@ -36,5 +36,16 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping(value="timeout", method=RequestMethod.GET)
+	public String timeout() {
+		return "timeout";
+		
+	}
+	
+	@RequestMapping(value="logout", method=RequestMethod.GET)
+	public String logout() {
+		return "loggedout";
+		
+	}
 	
 }

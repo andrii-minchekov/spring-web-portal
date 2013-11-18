@@ -18,7 +18,7 @@
 		<sf:form method="POST" modelAttribute="blogger"
 			enctype="multipart/form-data">
 			<fieldset>
-				<table cellspacing="0">
+				<table>
 					<tr>
 						<th><label for="firstName">First name:</label></th>
 						<td><sf:input path="firstName" size="15" id="firstName" />
@@ -62,7 +62,6 @@
 						
 						</tr>
 					<tr>
-						<th></th>
 						<td><input name="commit" type="submit"
 								value="Create my account" /></td>
 					</tr>

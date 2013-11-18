@@ -4,13 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.impl.StaticLoggerBinder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriUtils;
 
 import com.portal.domain.core.Blogger;
 import com.portal.domain.core.Post;
@@ -31,6 +33,7 @@ import com.portal.service.BloggerService;
 @RequestMapping("/bloggers")
 public class ProfileController {
 
+	Log log = org.apache.commons.logging.LogFactory.getLog(ProfileController.class);
 	@Autowired
 	BloggerService bloggerService;
 
@@ -61,10 +64,40 @@ public class ProfileController {
 
 		return "redirect:/bloggers/" + blogger.getLogin();
 	}
-
+	
+	@RequestMapping(value="signin", method = RequestMethod.GET)
+	public String signIn(Model model) {
+		Blogger blogger = new Blogger();
+		model.addAttribute(blogger);
+		return "bloggers/signin";
+	}
+	
+	@RequestMapping(value="signinPost", method = RequestMethod.POST)
+	public String signInPost(@RequestParam(value = "email", required = true) String email,
+			@RequestParam(value = "password", required = true) String password, Model model,
+			HttpServletRequest request) {
+		Blogger blogger = null;
+		try {
+			blogger = bloggerService.getBloggerByEmail(email);
+		} catch (NoResultException e) {
+			model.addAttribute("errorMessage", "Sorry, there is no such user registered");
+			return "bloggers/signin";
+		}
+		//model.addAttribute(blogger);
+		//org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder encoder = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+		//log.debug("admin@i.ua password 11 = " + encoder.encode("11"));
+		return "redirect:/bloggers/" + blogger.getLogin();
+	}
+	
 	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
 	public String showRecentPosts(@PathVariable String login, Model model) {
-		Blogger blogger = bloggerService.getBloggerByLogin(login);
+		Blogger blogger = null;
+		try {
+			blogger = bloggerService.getBloggerByLogin(login);
+		} catch (NoResultException e) {
+			model.addAttribute("errorMessage", "Sorry, there is no such user registered");
+			return "errorPage";
+		}
 		model.addAttribute(blogger);
 		model.addAttribute(new Post());
 		model.addAttribute("postList", bloggerService.getPostsOfBlogger(blogger));

@@ -11,6 +11,7 @@
       <t:uppercase>
       	<h4>Blogs for ${blogger.email}</h4>
       </t:uppercase>
+      	<p><a href="<s:url value="/logout"/>">Logout</a></p>
     </jsp:attribute>
 	<jsp:attribute name="footer">
       	<p>Page Footer block</p>
@@ -20,7 +21,7 @@
 			servletRelativeAction="/bloggers/${blogger.login}/createNewPost"
 			method="POST" modelAttribute="post">
 			<fieldset>
-			<table cellspacing="0">
+			<table>
 				<tr>
 					<th>New blog post</th>
 				</tr>
@@ -45,7 +46,7 @@
 			</fieldset>
 		</sf:form>
 
-		<table class="table" style="float:left" cellspacing="15">
+		<table class="table">
 			<c:forEach items="${postList}" var="post">
 				<tr>
 					<td><img
@@ -56,7 +57,7 @@
 							<c:out value="${post.lastUpdatedDate}" /></td>
 				</tr>
 				<tr>
-					<td>${post.content}
+					<td colspan="2">${post.content}</td>
 				
 					</tr>
 			</c:forEach>

@@ -3,6 +3,7 @@ package com.portal.dao;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -19,7 +20,7 @@ public class BloggerDaoImpl implements BloggerDao {
 	private EntityManager em;
 
 	@Override
-	@Transactional
+	@Transactional(readOnly=true)
 	public Blogger get(long id) {
 		return em.find(Blogger.class, id);
 	}
@@ -32,7 +33,7 @@ public class BloggerDaoImpl implements BloggerDao {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly=true)
 	public Collection<Post> getPostsOfBlogger(Blogger blogger) {
 		Query query = em.createQuery("from Post as p where p.blogger = ?1");
 		query.setParameter(1, blogger);
@@ -41,18 +42,22 @@ public class BloggerDaoImpl implements BloggerDao {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly=true)
 	public Blogger getBloggerByEmail(String email) {
 		Query query = em.createQuery("from Blogger where email=?1");
 		query.setParameter(1, email);
-		return (Blogger) query.getSingleResult();
+		Blogger blogger = null;
+		blogger = (Blogger) query.getSingleResult();
+		return blogger;
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly=true)
 	public Blogger getBloggerByLogin(String login) {
 		Query query = em.createQuery("from Blogger where login=?1");
 		query.setParameter(1, login);
-		return (Blogger) query.getSingleResult();
+		Blogger blogger = null;
+		blogger = (Blogger) query.getSingleResult();
+		return blogger;
 	}
 }

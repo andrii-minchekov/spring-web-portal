@@ -3,20 +3,18 @@
 
 <t:genericpage>
 	<jsp:attribute name="title">
-		Home page.
+		Error page.
     </jsp:attribute>
 	<jsp:attribute name="header">
       <t:uppercase>
-      	<h2>Welcome to Developer's portal.</h2>
+      	<h2>Erorr page.</h2>
       </t:uppercase>
     </jsp:attribute>
 	<jsp:attribute name="footer">
       	<p>Page Footer block</p>
     </jsp:attribute>
 	<jsp:body>
-        <P>The time on the server is ${serverTime}.</P>
-		<a href="bloggers/createNewBlogger">Sign Up</a> <br>
-		<a href="bloggers/signin">Sign in</a>
+        <P>${errorMessage}</P>
     </jsp:body>
 
 </t:genericpage>
