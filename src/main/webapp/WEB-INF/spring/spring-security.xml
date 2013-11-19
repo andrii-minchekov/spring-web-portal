@@ -13,7 +13,7 @@
 	<!-- authentication-manager-ref="org.springframework.security.authenticationManager" -->
 
 	<!-- <http pattern="/resources/**" security="none" /> -->
-	<http pattern="/logout" security="none" />
+	<!-- <http pattern="/logout" security="none" /> -->
 	<http pattern="/bloggers/signin" security="none" />
  
 
@@ -26,7 +26,7 @@
 <!-- 		<intercept-url pattern="/bloggers/createNewBlogger"
 			access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->
 		<intercept-url pattern="/**" access="permitAll" />
-		<form-login login-page="/bloggers/signin"
+		<form-login login-page="/bloggers/signin" 
 			login-processing-url="/bloggers/signinPost" username-parameter="email"
 			password-parameter="password" default-target-url="/bloggers/postList" />
 		<logout logout-success-url="/loggedout.jsp" delete-cookies="JSESSIONID" logout-url="/logout"/>
