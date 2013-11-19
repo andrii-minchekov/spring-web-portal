@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,5 +44,21 @@ public class PostController {
 		post.setLastUpdatedDate(new Date());
 		postService.savePost(post);
 		return "redirect:/bloggers/" + login;
+	}
+	
+	@RequestMapping(value="postList", method=RequestMethod.GET)
+	public String postList(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String email = null;
+		if (principal instanceof UserDetails) {
+		  email = ((UserDetails)principal).getUsername();
+		} else {
+		  email = principal.toString();
+		}
+		Blogger blogger = bloggerService.getBloggerByEmail(email);
+		model.addAttribute(blogger);
+		model.addAttribute(new Post());
+		model.addAttribute("postList", bloggerService.getPostsOfBlogger(blogger));
+		return "bloggers/postList";
 	}
 }

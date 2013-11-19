@@ -1,6 +1,7 @@
 package com.portal.dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
