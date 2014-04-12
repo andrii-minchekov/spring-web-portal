@@ -1,6 +1,6 @@
 package com.portal.dao;
 
-import com.portal.domain.core.Post;
+import com.portal.model.Post;
 
 public interface PostDao {
 	

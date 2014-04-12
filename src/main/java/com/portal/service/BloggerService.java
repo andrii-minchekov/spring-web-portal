@@ -1,10 +1,9 @@
 package com.portal.service;
 
 import java.util.Collection;
-import java.util.List;
 
-import com.portal.domain.core.Blogger;
-import com.portal.domain.core.Post;
+import com.portal.model.Blogger;
+import com.portal.model.Post;
 
 public interface BloggerService {
 

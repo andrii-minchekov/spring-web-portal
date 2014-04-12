@@ -2,10 +2,9 @@ package com.portal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.dao.PostDao;
-import com.portal.domain.core.Post;
+import com.portal.model.Post;
 
 @Service
 public class PostServiceImpl implements PostService {

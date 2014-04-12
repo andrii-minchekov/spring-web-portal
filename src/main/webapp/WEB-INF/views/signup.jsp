@@ -1,5 +1,5 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
-<%@ page session="false"%>
+<%-- @ page session="false" --%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:genericpage>

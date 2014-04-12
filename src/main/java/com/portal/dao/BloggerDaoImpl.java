@@ -1,18 +1,16 @@
 package com.portal.dao;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.domain.core.Blogger;
-import com.portal.domain.core.Post;
+import com.portal.model.Blogger;
+import com.portal.model.Post;
 
 @Repository(value = "bloggerDao")
 public class BloggerDaoImpl implements BloggerDao {

@@ -1,8 +1,8 @@
 package com.portal.dao;
 
 import java.util.Collection;
-import com.portal.domain.core.Blogger;
-import com.portal.domain.core.Post;
+import com.portal.model.Blogger;
+import com.portal.model.Post;
 
 public interface BloggerDao {
 	

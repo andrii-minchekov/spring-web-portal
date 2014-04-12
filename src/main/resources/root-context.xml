@@ -7,20 +7,25 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	<context:property-placeholder location="/WEB-INF/spring/jdbc.properties" />
+	<context:property-placeholder location="classpath:config-persistence/jdbc.properties" />
 	
-	<import resource="datalayer.xml" />
+	<import resource="classpath:config-persistence/datalayer.xml" />
 	
 	<context:component-scan base-package="com.portal">
 		<context:exclude-filter type="regex" expression="com\.portal\.controller.*"/>
 	</context:component-scan>
 
+    <context:annotation-config />
 <!-- 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
 			<value>jdbc.properties</value>
 		</property>
 	</bean> -->
-	
+
+   <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
+        <constructor-arg value="-web,-webAllowOthers,-webPort,8082"/>
+    </bean>
+
 </beans>
 

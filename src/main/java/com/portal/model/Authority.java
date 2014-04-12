@@ -1,4 +1,4 @@
-package com.portal.domain.core;
+package com.portal.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

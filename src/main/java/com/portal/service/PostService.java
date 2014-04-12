@@ -1,6 +1,6 @@
 package com.portal.service;
 
-import com.portal.domain.core.Post;
+import com.portal.model.Post;
 
 public interface PostService {
 	void getPostById(long id);

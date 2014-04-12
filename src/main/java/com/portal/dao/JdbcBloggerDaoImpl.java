@@ -22,8 +22,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.domain.core.Blogger;
-import com.portal.domain.core.Post;
+import com.portal.model.Blogger;
+import com.portal.model.Post;
 
 //@Lazy
 //@Repository

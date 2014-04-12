@@ -15,8 +15,8 @@
     </jsp:attribute>
 	<jsp:body>
         <P>The time on the server is ${serverTime}.</P>
-		<a href="bloggers/createNewBlogger">Sign Up</a> <br>
-		<a href="bloggers/signin">Sign in</a>
+		<a href="signup">Sign Up</a> <br>
+		<a href="signin">Sign in</a>
     </jsp:body>
 
 </t:genericpage>

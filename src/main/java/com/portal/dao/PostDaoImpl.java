@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.domain.core.Post;
+import com.portal.model.Post;
 
 @Repository
 public class PostDaoImpl implements PostDao {

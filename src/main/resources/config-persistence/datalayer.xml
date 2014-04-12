@@ -13,7 +13,7 @@
 		META-INF context.xml) <jee:jndi-lookup id="dataSource" jndi-name="jdbc/portalDB" 
 		resource-ref="true" /> -->
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+<!--	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
@@ -21,7 +21,10 @@
 		<property name="password" value="${jdbc.password}" />
 		<property name="maxActive" value="8" />
 		<property name="maxIdle" value="4" />
-	</bean>
+	</bean>-->
+
+    <jdbc:embedded-database id="dataSource" type="H2"/>
+            <!-- by default can access it using jdbc:h2:mem:dataSource;DB_CLOSE_DELAY=-1-->
 
 	<bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -34,10 +37,17 @@
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<!-- better set property package-to-scan -->
-		<property name="persistenceXmlLocation" value="classpath:persistence.xml" />
-		<property name="persistenceUnitName" value="persistenceUnit" />
+		<property name="packagesToScan" value="com.portal.model"/>
+<!--        <property name="persistenceXmlLocation" value="classpath:config-persistence/persistence.xml" />
+		<property name="persistenceUnitName" value="persistenceUnit" />-->
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+            </props>
+        </property>
 	</bean>
 
 	<!-- post-processors for all standard config annotations <context:annotation-config 
@@ -51,12 +61,12 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
-	<jdbc:initialize-database data-source="dataSource"
+<!--	<jdbc:initialize-database data-source="dataSource"
 		enabled="true">
-		<!-- <jdbc:script location="classpath:db-drop-schema.sql" /> -->
+		&lt;!&ndash; <jdbc:script location="classpath:db-drop-schema.sql" /> &ndash;&gt;
 		<jdbc:script location="classpath:db-schema.sql" />
 		<jdbc:script location="classpath:db-test-data.sql" />
-	</jdbc:initialize-database>
+	</jdbc:initialize-database>-->
 
 </beans>
 	

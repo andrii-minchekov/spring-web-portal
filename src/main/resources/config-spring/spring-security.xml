@@ -14,21 +14,21 @@
 
 	<!-- <http pattern="/resources/**" security="none" /> -->
 	<!-- <http pattern="/logout" security="none" /> -->
-	<http pattern="/bloggers/signin" security="none" />
+	<http pattern="/signup" security="none" />
  
 
 	<http auto-config="false" use-expressions="true">
 		<intercept-url pattern="/secure/extreme/**" access="hasRole('supervisor')" />
-		<!-- <intercept-url pattern="/bloggers/signin" access="isAnonymous()" /> -->
+		<intercept-url pattern="/signin" access="isAnonymous()" />
 		<intercept-url pattern="/bloggers/**" access="isAuthenticated()" /> 
 		<!-- Allow all other requests. In a real application you should adopt a 
 			whitelisting approach where access is not allowed by default -->
 <!-- 		<intercept-url pattern="/bloggers/createNewBlogger"
 			access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->
 		<intercept-url pattern="/**" access="permitAll" />
-		<form-login login-page="/bloggers/signin" 
-			login-processing-url="/bloggers/signinPost" username-parameter="email"
-			password-parameter="password" default-target-url="/bloggers/postList" />
+		<form-login login-page="/signin"
+			login-processing-url="/signinPost" username-parameter="email"
+			password-parameter="password" default-target-url="/postList" />
 		<logout logout-success-url="/loggedout.jsp" delete-cookies="JSESSIONID" logout-url="/logout"/>
 		<remember-me />
 		<!-- Uncomment to enable X509 client authentication support <x509 /> -->

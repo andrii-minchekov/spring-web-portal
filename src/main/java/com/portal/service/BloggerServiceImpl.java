@@ -1,15 +1,14 @@
 package com.portal.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import com.portal.dao.BloggerDao;
-import com.portal.domain.core.Blogger;
-import com.portal.domain.core.Post;
+import com.portal.model.Blogger;
+import com.portal.model.Post;
 
 @Service(value="bloggerService")
 public class BloggerServiceImpl implements BloggerService {
