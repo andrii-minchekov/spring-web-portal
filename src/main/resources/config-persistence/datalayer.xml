@@ -67,6 +67,14 @@
 		<jdbc:script location="classpath:db-schema.sql" />
 		<jdbc:script location="classpath:db-test-data.sql" />
 	</jdbc:initialize-database>-->
+<!--
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="shouldRun" value="false" />
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog" value="classpath:/liquibase/changelogs/db.master.changelog.xml" />
+        <property name="contexts" value="${liquibase.context}" />
+        <property name="defaultSchema" value="${liquibase.defaultSchema:}" />
+    </bean>-->
 
 </beans>
 	
