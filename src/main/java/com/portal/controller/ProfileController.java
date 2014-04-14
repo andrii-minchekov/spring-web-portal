@@ -1,18 +1,12 @@
 package com.portal.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-import javax.persistence.NoResultException;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
+import com.portal.exception.ImageUploadException;
+import com.portal.model.Blogger;
+import com.portal.model.Post;
+import com.portal.service.BloggerService;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.impl.StaticLoggerBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.portal.domain.core.Blogger;
-import com.portal.domain.core.Post;
-import com.portal.exception.ImageUploadException;
-import com.portal.service.BloggerService;
+import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 //@Lazy
 @Controller
 @RequestMapping("/bloggers")
 public class ProfileController {
 
-	Log log = org.apache.commons.logging.LogFactory.getLog(ProfileController.class);
+	Logger logger = LoggerFactory.getLogger(ProfileController.class);
 	@Autowired
 	BloggerService bloggerService;
 

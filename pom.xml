@@ -185,6 +185,7 @@
 			<version>7.0.30</version>
 			<scope>provided</scope>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -222,6 +223,11 @@
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
 			</plugin>
+
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+            </plugin>
 		</plugins>
 	</build>
 	<repositories>
