@@ -14,7 +14,7 @@
       	<p>Page Footer block</p>
     </jsp:attribute>
 	<jsp:body>
-       <sf:form method="Post" servletRelativeAction="/bloggers/signinPost">
+       <sf:form method="Post" servletRelativeAction="/signin">
 			<fieldset>
 				<table>
 					<tr>

@@ -33,7 +33,7 @@ public class ProfileController {
 	@Autowired
 	BloggerService bloggerService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "createNewBlogger")
+	/*@RequestMapping(method = RequestMethod.GET, value = "createNewBlogger")
 	public String createNewBloggerProfile(Model model) {
 		Blogger blogger = new Blogger();
 		model.addAttribute("blogger", blogger);
@@ -85,20 +85,7 @@ public class ProfileController {
 		return "redirect:/bloggers/" + blogger.getLogin();
 	}
 	
-	@RequestMapping(value = "/{login}", method = RequestMethod.GET)
-	public String showRecentPosts(@PathVariable String login, Model model) {
-		Blogger blogger = null;
-		try {
-			blogger = bloggerService.getBloggerByLogin(login);
-		} catch (NoResultException e) {
-			model.addAttribute("errorMessage", "Sorry, there is no such user registered");
-			return "errorPage";
-		}
-		model.addAttribute(blogger);
-		model.addAttribute(new Post());
-		model.addAttribute("postList", bloggerService.getPostsOfBlogger(blogger));
-		return "bloggers/postList";
-	}
+
 
 	private void validateImage(MultipartFile image) {
 		if (!image.getContentType().equals("image/jpeg")) {
@@ -120,6 +107,6 @@ public class ProfileController {
 			throw new ImageUploadException("Unable to save image", e);
 		}
 
-	}
+	}*/
 
 }

@@ -3,6 +3,7 @@ package com.portal.controller;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.validation.Valid;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +21,7 @@ import com.portal.service.BloggerService;
 import com.portal.service.PostService;
 
 @Controller
-@RequestMapping("/bloggers")
+@RequestMapping("/posts")
 public class PostController {
 	
 	@Inject
@@ -29,9 +30,10 @@ public class PostController {
 	@Inject
 	BloggerService bloggerService;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/{login}/createNewPost")
+	@RequestMapping(method = RequestMethod.POST)
 	public String createNewBloggerPost(@Valid Post post,
 			BindingResult bindingResult, @PathVariable String login, Model model) {
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Blogger blogger = bloggerService.getBloggerByLogin(login);
 		model.addAttribute(blogger);
 		if (bindingResult.hasErrors()) {
@@ -43,9 +45,9 @@ public class PostController {
 		return "redirect:/bloggers/" + login;
 	}
 	
-	@RequestMapping(value="postList", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public String postList(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		/*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String email = null;
 		if (principal instanceof UserDetails) {
 		  email = ((UserDetails)principal).getUsername();
@@ -53,9 +55,25 @@ public class PostController {
 		  email = principal.toString();
 		}
 		Blogger blogger = bloggerService.getBloggerByEmail(email);
-		model.addAttribute(blogger);
+		model.addAttribute(blogger);*/
 		model.addAttribute(new Post());
-		model.addAttribute("postList", bloggerService.getPostsOfBlogger(blogger));
-		return "bloggers/postList";
+		model.addAttribute("postList", postService.getAllPosts());
+		return "posts/postList";
 	}
+
+    @RequestMapping(value="/blogger/{blogger_login}")
+    public String getPostsOfBlogger(@PathVariable(value = "blogger_login") String login, Model model) {
+
+        Blogger blogger = null;
+        try {
+            blogger = bloggerService.getBloggerByLogin(login);
+        } catch (NoResultException e) {
+            model.addAttribute("errorMessage", "Sorry, there is no such user registered");
+            return "errorPage";
+        }
+        model.addAttribute(blogger);
+        model.addAttribute(new Post());
+        model.addAttribute("postList", bloggerService.getPostsOfBlogger(blogger));
+        return "posts/postList";
+    }
 }

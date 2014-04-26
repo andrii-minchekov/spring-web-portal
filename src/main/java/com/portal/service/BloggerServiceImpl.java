@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import com.portal.dao.BloggerDao;
 import com.portal.model.Blogger;
 import com.portal.model.Post;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service(value="bloggerService")
+@Transactional(propagation = Propagation.REQUIRED)
 public class BloggerServiceImpl implements BloggerService {
 
 	@Inject
@@ -19,7 +22,6 @@ public class BloggerServiceImpl implements BloggerService {
 	@Override
 	public void saveBlogger(Blogger blogger) {
 		bloggerDao.addBlogger(blogger);
-		
 	}
 
 	@Override
