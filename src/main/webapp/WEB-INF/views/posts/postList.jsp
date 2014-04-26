@@ -3,6 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
+%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+
+<c:if test="<%=SecurityContextHolder.getContext().getAuthentication() != null %>">
+    <!-- your secure content here -->
+</c:if>
+
+
 <t:genericpage>
 	<jsp:attribute name="title">
 		Blog list of ${blogger.email}.

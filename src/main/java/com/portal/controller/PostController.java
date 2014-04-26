@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -32,30 +33,34 @@ public class PostController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String createNewBloggerPost(@Valid Post post,
-			BindingResult bindingResult, @PathVariable String login, Model model) {
-        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Blogger blogger = bloggerService.getBloggerByLogin(login);
-		model.addAttribute(blogger);
+			BindingResult bindingResult, Model model) {
+
 		if (bindingResult.hasErrors()) {
 			return "/bloggers/postList";
 		}
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            throw new IllegalArgumentException("You must be authorized");
+        }
+        Object principal = auth.getPrincipal();
+        String email = null;
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails) principal).getUsername();
+        } else {
+            email = principal.toString();
+        }
+        Blogger blogger = bloggerService.getBloggerByEmail(email);
+        model.addAttribute(blogger);
+
 		post.setBlogger(blogger);
 		post.setLastUpdatedDate(new Date());
 		postService.savePost(post);
-		return "redirect:/bloggers/" + login;
+		return "redirect:/posts/blogger/" + blogger.getLogin();
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String postList(Model model) {
-		/*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String email = null;
-		if (principal instanceof UserDetails) {
-		  email = ((UserDetails)principal).getUsername();
-		} else {
-		  email = principal.toString();
-		}
-		Blogger blogger = bloggerService.getBloggerByEmail(email);
-		model.addAttribute(blogger);*/
 		model.addAttribute(new Post());
 		model.addAttribute("postList", postService.getAllPosts());
 		return "posts/postList";
