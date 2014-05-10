@@ -29,7 +29,7 @@
 		<intercept-url pattern="/**" access="permitAll" />
 		<form-login login-page="/signin"
 			login-processing-url="/signin_check" username-parameter="email"
-			password-parameter="password" default-target-url="/posts" />
+			password-parameter="password" default-target-url="/" />
         <logout logout-success-url="/loggedout.jsp" delete-cookies="JSESSIONID" logout-url="/j_spring_security_logout"/>
 		<remember-me />
 		<!-- Uncomment to enable X509 client authentication support <x509 /> -->

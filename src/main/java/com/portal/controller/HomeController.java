@@ -9,7 +9,9 @@ import java.util.Locale;
 
 import com.portal.exception.ImageUploadException;
 import com.portal.model.Blogger;
+import com.portal.model.Post;
 import com.portal.service.BloggerService;
+
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +50,8 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		Post post = new Post();
+		model.addAttribute("post", post);
 		
 		return "home";
 	}
