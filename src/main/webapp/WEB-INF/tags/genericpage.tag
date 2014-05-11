@@ -10,6 +10,7 @@
 </head>
 <body>
 	<div id="pageheader">
+		<jsp:include page="/WEB-INF/views/menu.jsp" />
 		<jsp:invoke fragment="header" />
 	</div>
 	<div id="body">

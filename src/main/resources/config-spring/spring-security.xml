@@ -30,7 +30,7 @@
 		<form-login login-page="/signin"
 			login-processing-url="/signin_check" username-parameter="email"
 			password-parameter="password" default-target-url="/" />
-        <logout logout-success-url="/loggedout.jsp" delete-cookies="JSESSIONID" logout-url="/j_spring_security_logout"/>
+        <logout logout-success-url="/loggedout" delete-cookies="JSESSIONID" logout-url="/j_logout"/>
 		<remember-me />
 		<!-- Uncomment to enable X509 client authentication support <x509 /> -->
 		<!-- Uncomment to limit the number of sessions a user can have -->

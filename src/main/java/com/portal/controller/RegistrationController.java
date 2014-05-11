@@ -29,7 +29,7 @@ public class RegistrationController {
     @Autowired
     BloggerService bloggerService;
 
-    @RequestMapping(value="logout", method= RequestMethod.GET)
+    @RequestMapping(value="loggedout", method= RequestMethod.GET)
     public String logout() {
         return "loggedout";
 
@@ -60,7 +60,7 @@ public class RegistrationController {
             return "signup";
         }
 
-        return "redirect:/posts/blogger/" + blogger.getLogin();
+        return "redirect:/posts/blogger/" + blogger.getEmail();
     }
 
     @RequestMapping(value = "signin", method = RequestMethod.GET)

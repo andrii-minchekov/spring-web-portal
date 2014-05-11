@@ -31,6 +31,13 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
+    public boolean deletePost(long id) {
+        Post post = em.find(Post.class, id);
+        em.remove(post);
+        return true;
+    }
+
+    @Override
 	public void addPost(Post post) {
 		em.persist(post);
 

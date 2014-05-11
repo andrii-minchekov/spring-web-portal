@@ -32,4 +32,9 @@ public class PostServiceImpl implements PostService {
         return postDao.getAllPosts();
     }
 
+    @Override
+    public boolean deletePost(long id) {
+        return postDao.deletePost(id);
+    }
+
 }

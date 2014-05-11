@@ -11,4 +11,6 @@ public interface PostService {
 	void savePost(Post post);
 
     List<Post> getAllPosts();
+
+    boolean deletePost(long id);
 }

@@ -12,4 +12,6 @@ public interface PostDao {
 
     List<Post> getAllPosts();
 
+    boolean deletePost(long id);
+
 }
